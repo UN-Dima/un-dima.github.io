@@ -1,1 +1,105 @@
-Satatic HTML files will be automatic generated here
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<!--Brython-->
+<script type="text/javascript" src="/static/brython/brython-3.10.5/brython.js"></script>
+<script type="text/javascript" src="/static/brython/brython-3.10.5/brython_stdlib.js"></script>
+
+
+<!--PyScript-->
+<!--<link rel="stylesheet" href="/static/pyscript/pyscript-2022.06.1/pyscript.css" />-->
+<script defer src="/static/pyscript/pyscript-2022.06.1/pyscript.js"></script>
+<style>
+#pyscript-loading-label {
+display: none;
+}
+</style>
+
+<script type="text/javascript" src="/static/material-components-web/material-components-web.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/material-components-web/material-components-web.min.css">
+<link rel="stylesheet" type="text/css" href="/theme.css">
+<!--Fonts-->
+<link type="text/css" rel="stylesheet" href="/static/fonts/fontawesome/css/all.min.css">
+<link type="text/css" rel="stylesheet" href="/static/fonts/roboto-android/roboto.css">
+<link type="text/css" rel="stylesheet" href="/static/fonts/roboto-android/roboto-mono.css">
+<link type="text/css" rel="stylesheet" href="/static/fonts/bootstrap-icons/bootstrap-icons.css">
+<!--Material Icons-->
+<link type="text/css" rel="stylesheet" href="/static/fonts/material-design-icons-3.0.1/iconfont/material-icons.css">
+
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script type='text/javascript'>
+function plot(graph, chart) {
+var figure = JSON.parse(graph)
+Plotly.newPlot(chart, figure, {});
+}
+</script>
+
+
+<script type="text/python">
+import sys
+sys.path.append('/root/')
+sys.path.append('/static/modules/brython')
+from radiant.utils import fake
+
+</script>
+<script type="text/python">
+
+from radiant.utils import autoinit
+from index import BareMinimum
+argvs = ["/home/yeison/Documents/Development/un-dima.github.io/index.py"]
+
+BareMinimum(None, (None, None))
+
+autoinit()
+</script>
+
+
+<py-env>
+
+- numpy
+
+- matplotlib
+
+- plotly
+
+- pandas
+
+</py-env>
+
+</head>
+
+<body onload="brython(0)">
+
+<div class="jumbotron">
+<h1>Weather Data</h1>
+<p class="lead">
+Some graphs about the weather in London in 2020
+</p>
+</div>
+<div class="row">
+<div class="col-sm-2 p-2 ml-4 mb-1">
+<button type="button" class="btn btn-secondary">Select chart from list:</button>
+</div>
+<div class="col-sm-4 p-2 mr-4 mb-1">
+<select class="form-control" id="select">
+<option value="Tmax">Maximum Temperature</option>
+<option value="Tmin">Minimum Temperature</option>
+<option value="Sun">Sun</option>
+<option value="Rain">Rain</option>
+</select>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6 p-2 shadow ml-4 mr-4 mb-4 bg-white rounded">
+<div id="chart1"></div>
+</div>
+</div>
+
+
+<py-script src="/static/modules/pyscript/server.py"></py-script>
+
+</body>
+
+</html>
