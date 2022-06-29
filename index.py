@@ -1,5 +1,6 @@
 #!brython
 
+import os
 from radiant.server import RadiantAPI, RadiantServer, pyscript
 from browser import document, html
 
@@ -11,7 +12,6 @@ class BareMinimum(RadiantAPI):
     def __init__(self, *args, **kwargs):
         """"""
         super().__init__(*args, **kwargs)
-        document.select_one('body') <= html.H1('Radiant-Framework')
 
         document.select_one('body') <= html.DIV(id='mpl')
         self.plot()
@@ -65,6 +65,6 @@ class BareMinimum(RadiantAPI):
 
 if __name__ == '__main__':
     RadiantServer('BareMinimum',
-                  template='layout.html',
+                  template=os.path.join('templates', 'layout.html'),
                   static_app=True,
                   )
