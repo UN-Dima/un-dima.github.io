@@ -10,11 +10,8 @@ import logging
 RadiantServer = None
 PYSCRIPT = html.maketag('py-script')
 
-PYSCRIPT_FUNTIONS = []
 
 # ----------------------------------------------------------------------
-
-
 def pyscript(output=None):
     """"""
     if callable(output):
@@ -38,10 +35,7 @@ def pyscript(output=None):
                 output_id = output
 
             # Source code
-            if not fn.__name__ in PYSCRIPT_FUNTIONS:
-                source = inspect.getsource(fn)
-            else:
-                source = f'# Function {fn.__name__} already defined'
+            source = inspect.getsource(fn)
             logging.warning(f'*{args[1:]}, **{kwargs}')
             source += f'{fn.__name__}(None, *{args[1:]}, **{kwargs})'
 
