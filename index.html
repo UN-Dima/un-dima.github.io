@@ -11,15 +11,19 @@
 <!--PyScript-->
 <!--<link rel="stylesheet" href="/static/pyscript/pyscript-2022.06.1/pyscript.css" />-->
 <script defer src="/static/pyscript/pyscript-2022.06.1/pyscript.js"></script>
-<style>
-#pyscript-loading-label {
-display: none;
-}
-</style>
+<!--<style>-->
+<!--#pyscript-loading-label {-->
+<!--display: none;-->
+<!--}-->
+<!--</style>-->
 
+<!--MDC-->
 <script type="text/javascript" src="/static/material-components-web/material-components-web.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/material-components-web/material-components-web.min.css">
 <link rel="stylesheet" type="text/css" href="/theme.css">
+<!--Bootstrap-->
+<link href="/static/bootstrap/bootstrap-5.0.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="/static/bootstrap/bootstrap-5.0.2/js/bootstrap.min.js"></script>
 <!--Fonts-->
 <link type="text/css" rel="stylesheet" href="/static/fonts/fontawesome/css/all.min.css">
 <link type="text/css" rel="stylesheet" href="/static/fonts/roboto-android/roboto.css">
@@ -56,18 +60,31 @@ autoinit()
 
 - pandas
 
+- numpy
+
 </py-env>
 
 </head>
 
 <body onload="brython(0)">
 
+<div class="container">
 <div class="row">
-<div class="col-sm-6 p-2 shadow ml-4 mr-4 mb-4 bg-white rounded">
+<div class="col-sm-6 bg-white rounded">
 <div id="chart1"></div>
+</div>
+<div class="col-sm-6 bg-white rounded">
+<div id="chart2"></div>
+</div>
+<div class="col-sm-12 bg-white rounded">
+<div id="chart3"></div>
+</div>
 </div>
 </div>
 
+
+
+<py-script src="/root/pyscript_fn.py"></py-script>
 
 <py-script src="/static/modules/pyscript/server.py"></py-script>
 
