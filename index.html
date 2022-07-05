@@ -22,8 +22,9 @@
 <link rel="stylesheet" type="text/css" href="/static/material-components-web/material-components-web.min.css">
 <link rel="stylesheet" type="text/css" href="/theme.css">
 <!--Bootstrap-->
-<link href="/static/bootstrap/bootstrap-5.0.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="/static/bootstrap/bootstrap-5.0.2/js/bootstrap.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<link href="/static/bootstrap/bootstrap-5.2.0-beta1/css/bootstrap.min.css" rel="stylesheet">
+<script src="/static/bootstrap/bootstrap-5.2.0-beta1/js/bootstrap.min.js"></script>
 <!--Fonts-->
 <link type="text/css" rel="stylesheet" href="/static/fonts/fontawesome/css/all.min.css">
 <link type="text/css" rel="stylesheet" href="/static/fonts/roboto-android/roboto.css">
@@ -68,17 +69,147 @@ autoinit()
 
 <body onload="brython(0)">
 
-<div class="container">
+<div class="container-fluid">
+<div class="container" id='dima-counters'>
+<div class="card" style="width: 10rem;">
+<div class="card-body">
+<h1 class="card-title" id='dima-counters-facultades'>00</h1>
+<p class="card-text">Facultades</p>
+</div>
+</div>
+<div class="card" style="width: 10rem;">
+<div class="card-body">
+<h1 class="card-title" id='dima-counters-departamentos'>00</h1>
+<p class="card-text">Departamentos</p>
+</div>
+</div>
+<div class="card" style="width: 10rem;">
+<div class="card-body">
+<h1 class="card-title" id='dima-counters-grupos'>00</h1>
+<p class="card-text">Grupos de investigación</p>
+</div>
+</div>
+</div><br>
+<!--<ul class="nav nav-tabs" id="myTab" role="tablist">-->
+<!--<li class="nav-item" role="presentation">-->
+<!--<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Facultades</button>-->
+<!--</li>-->
+<!--<li class="nav-item" role="presentation">-->
+<!--<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Grupos de investigación</button>-->
+<!--</li>-->
+<!--<li class="nav-item" role="presentation">-->
+<!--<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>-->
+<!--</li>-->
+<!--<li class="nav-item" role="presentation">-->
+<!--<button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>-->
+<!--</li>-->
+<!--</ul>-->
+<!--<div class="tab-content" id="myTabContent">-->
+<!--<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">-->
+<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked dima-facultad='All'>
+<label class="btn btn-sm btn-outline-primary" for="btnradio1">Todas las facultades</label>
+<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" dima-facultad='Facultad de administración'>
+<label class="btn btn-sm btn-outline-primary" for="btnradio2">Facultad de administración</label>
+<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" dima-facultad='Facultad de ciencias exactas y naturales'>
+<label class="btn btn-sm btn-outline-primary" for="btnradio3">Facultad de ciencias exactas y naturales</label>
+<input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" dima-facultad='Facultad de ingeniería y arquitectura'>
+<label class="btn btn-sm btn-outline-primary" for="btnradio4">Facultad de ingeniería y arquitectura</label>
+</div><br>
+<div id="dima-facultad-description">
+</div>
 <div class="row">
-<div class="col-sm-6 bg-white rounded">
+<div class="col-sm-12 bg-white rounded">
 <div id="chart1"></div>
 </div>
 <div class="col-sm-6 bg-white rounded">
 <div id="chart2"></div>
 </div>
-<div class="col-sm-12 bg-white rounded">
+<div class="col-sm-6 bg-white rounded">
 <div id="chart3"></div>
 </div>
+<div class="col-sm-12 bg-white rounded">
+<div id="chart4"></div>
+</div>
+</div>
+<!--</div>-->
+<!--<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...</div>-->
+<!--<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>-->
+<!--<div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>-->
+<!--</div>-->
+<br>
+<div class="btn-group">
+<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+Action
+</button>
+<ul class="dropdown-menu">
+<li><a class="dropdown-item" href="#">Abc dynamics</a></li>
+<li><a class="dropdown-item" href="#">Analisis matematico am</a></li>
+<li><a class="dropdown-item" href="#">Arquitectura medio ambiente y sostenibilidad</a></li>
+<li><a class="dropdown-item" href="#">Arquitectura y ciudad: ciencia y cultura</a></li>
+<li><a class="dropdown-item" href="#">Arquitectura, ciudad y territorio</a></li>
+<li><a class="dropdown-item" href="#">Arquitectura, medios de representación y comunicación</a></li>
+<li><a class="dropdown-item" href="#">Aplicaciones y enseñanza de las ciencias exactas y naturales</a></li>
+<li><a class="dropdown-item" href="#">Bioproductos</a></li>
+<li><a class="dropdown-item" href="#">Calculo cientifico y modelamiento matematico</a></li>
+<li><a class="dropdown-item" href="#">Cognición, lenguaje y cultura</a></li>
+<li><a class="dropdown-item" href="#">Competitividad empresarial y gestion tecnologica</a></li>
+<li><a class="dropdown-item" href="#">Computacion aplicada suave y dura shac</a></li>
+<li><a class="dropdown-item" href="#">Control y procesamiento digital de señales</a></li>
+<li><a class="dropdown-item" href="#">Corporate governance tecnologia y complejidad</a></li>
+<li><a class="dropdown-item" href="#">Cultura de la calidad en la educacion</a></li>
+<li><a class="dropdown-item" href="#">Cultura organizacional y gestion humana</a></li>
+<li><a class="dropdown-item" href="#">Educación en ciencias exactas y naturales - educen</a></li>
+<li><a class="dropdown-item" href="#">Emprendimiento empresarial</a></li>
+<li><a class="dropdown-item" href="#">Environmental energy and education policy e3p</a></li>
+<li><a class="dropdown-item" href="#">Estudios en cultura y comunicacion esculco</a></li>
+<li><a class="dropdown-item" href="#">Estudios regionales cultura y sociedad</a></li>
+<li><a class="dropdown-item" href="#">Etica empresarial y empresariado social ethos</a></li>
+<li><a class="dropdown-item" href="#">Filosofia y teoria en administracion</a></li>
+<li><a class="dropdown-item" href="#">Finanzas cuantitativas</a></li>
+<li><a class="dropdown-item" href="#">Finanzas y marketing</a></li>
+<li><a class="dropdown-item" href="#">Gaia grupo de ambientes inteligentes adaptativos</a></li>
+<li><a class="dropdown-item" href="#">Gestion responsable para la sostenibilidad territorial</a></li>
+<li><a class="dropdown-item" href="#">Gestión de la infraestructura de transporte y del espacio público</a></li>
+<li><a class="dropdown-item" href="#">Gestión de las expresiones artísticas, memoria y creación</a></li>
+<li><a class="dropdown-item" href="#">Gestión del conocimiento e-business</a></li>
+<li><a class="dropdown-item" href="#">Gipem grupo de investigacion en potencia energia y mercados</a></li>
+<li><a class="dropdown-item" href="#">Grupo de alimentos frutales</a></li>
+<li><a class="dropdown-item" href="#">Grupo de fisicoquimica computacional</a></li>
+<li><a class="dropdown-item" href="#">Grupo de investigacion en aplicacion de nuevas tecnologias</a></li>
+<li><a class="dropdown-item" href="#">Grupo de investigacion en aprovechamiento de residuos</a></li>
+<li><a class="dropdown-item" href="#">Grupo de investigacion en calidad de la energia y electronica de potencia</a></li>
+<li><a class="dropdown-item" href="#">Grupo de investigacion en matematicas fisica y computacion fizmako</a></li>
+<li><a class="dropdown-item" href="#">Grupo de investigacion en procesos reactivos intensificados con separacion y materiales avanzados prisma</a></li>
+<li><a class="dropdown-item" href="#">Grupo de investigacion en recursos energeticos gire</a></li>
+<li><a class="dropdown-item" href="#">Grupo de investigacion modelos estadísticos</a></li>
+<li><a class="dropdown-item" href="#">Grupo de investigación en administracion moderna</a></li>
+<li><a class="dropdown-item" href="#">Grupo de investigación en arquitectura: gia</a></li>
+<li><a class="dropdown-item" href="#">Grupo de trabajo academico de patrimonio urbanismo y arquitectura</a></li>
+<li><a class="dropdown-item" href="#">Grupo de trabajo academico en aplicaciones y herramientas web</a></li>
+<li><a class="dropdown-item" href="#">Grupo de trabajo academico en ingenieria hidraulica y ambiental</a></li>
+<li><a class="dropdown-item" href="#">Grupo de trabajo académico en movilidad sostenible - gims</a></li>
+<li><a class="dropdown-item" href="#">Gtt grupo de investigacion en telematica y telecomunicaciones</a></li>
+<li><a class="dropdown-item" href="#">Identidad y cultura</a></li>
+<li><a class="dropdown-item" href="#">Ingenieria sismica y sismologia</a></li>
+<li><a class="dropdown-item" href="#">Innovacion y desarrollo tecnologico</a></li>
+<li><a class="dropdown-item" href="#">Instrumentación fisica</a></li>
+<li><a class="dropdown-item" href="#">Laboratorio de fisica del plasma</a></li>
+<li><a class="dropdown-item" href="#">Magnetismo y materiales avanzados</a></li>
+<li><a class="dropdown-item" href="#">No aplica o no aparece</a></li>
+<li><a class="dropdown-item" href="#">No esta en minciencias</a></li>
+<li><a class="dropdown-item" href="#">No operan</a></li>
+<li><a class="dropdown-item" href="#">Pcm computational applications</a></li>
+<li><a class="dropdown-item" href="#">Pensamiento ambiental</a></li>
+<li><a class="dropdown-item" href="#">Percepcion y control inteligente pci</a></li>
+<li><a class="dropdown-item" href="#">Polimeros y materiales compuestos </a></li>
+<li><a class="dropdown-item" href="#">Procesos quimicos cataliticos y biotecnologicos</a></li>
+<li><a class="dropdown-item" href="#">Propagacion electromagnetica aplicada (propela)</a></li>
+<li><a class="dropdown-item" href="#">Propiedades opticas de materiales</a></li>
+<li><a class="dropdown-item" href="#">Redes de distribucion y potencia</a></li>
+<li><a class="dropdown-item" href="#">Teoria y gestion de tecnologias de la informacion</a></li>
+<li><a class="dropdown-item" href="#">Teoria y practica de la gestion cultural</a></li>
+</ul>
 </div>
 </div>
 

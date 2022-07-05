@@ -8,43 +8,18 @@ def render_plotly_fig__(fig, chart):
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     js.Plotly.newPlot(chart, js.JSON.parse(graphJSON), {})
 
-    return None
-
 
 # ----------------------------------------------------------------------
 def process_data():
     """"""
-    return {'hola': 'mundo',
-            'Nania': True,
-            'Ezis': 3.5,
-            }
+    global groups, df
 
+    import json
+    import numpy as np
 
-# ----------------------------------------------------------------------
-def plot():
-    """"""
-    global groups
+    return json.dumps({
+        'grupos': np.unique(df['Nombre del grupo'].tolist()),
+        'facultades': np.unique(groups['facultad'].tolist()),
+        'departamentos': np.unique(groups['departamento'].tolist()),
 
-    import plotly.express as px
-    fig = px.bar(groups, y='ocde', orientation='h')
-    return fig
-
-
-# ----------------------------------------------------------------------
-def plot2():
-    """"""
-    global groups
-
-    import plotly.express as px
-    fig = px.bar(groups, y='ocde2', orientation='h')
-    return fig
-
-
-# ----------------------------------------------------------------------
-def plot3():
-    """"""
-    global groups
-
-    import plotly.express as px
-    fig = px.bar(groups, y='knowledge', orientation='h')
-    return fig
+    })

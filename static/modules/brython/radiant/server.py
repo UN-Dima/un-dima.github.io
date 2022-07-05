@@ -6,6 +6,7 @@ import inspect
 from string import ascii_lowercase
 import random
 import logging
+import json
 
 RadiantServer = None
 PYSCRIPT = html.maketag('py-script')
@@ -80,6 +81,7 @@ def pyscript(output=None, inline=False, plotly_out=None, callback=None):
             if (output is None) and (plotly_out is None):
                 return out
             elif output is 'RAW':
+                # on_callback(py_script, args[0])
                 on_callback(py_script, args[0])
                 return None
 
@@ -87,13 +89,21 @@ def pyscript(output=None, inline=False, plotly_out=None, callback=None):
     return wrapargs
 
 
-# ----------------------------------------------------------------------
+P = 0
+
+
 def on_callback(element, fn):
     """"""
-    if element.text:
+    global P
+
+    P += 1
+    if element.text or P > 200:
+        print('calling...')
         fn.callback_fn(element.text)
+        P = 0
     else:
-        timer.set_timeout(lambda: on_callback(element, fn), 100)
+        print(f'waiting... {element.text}')
+        timer.set_timeout(lambda: on_callback(element, fn), 10)
 
 
 ########################################################################
