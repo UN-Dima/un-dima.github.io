@@ -1,3 +1,8 @@
+""""""
+global groups, df
+import plotly.express as px
+import json
+import numpy as np
 
 
 # ----------------------------------------------------------------------
@@ -10,16 +15,79 @@ def render_plotly_fig__(fig, chart):
 
 
 # ----------------------------------------------------------------------
-def process_data():
+def plot1(faculty):
     """"""
-    global groups, df
+    config = {
+        'labels': {'ocde': 'Area',
+                   'sub_ocde': 'Subárea',
+                   'count': ''
+                   },
+        'height': 500,
+        'title': 'Áreas del Conocimiento - OCDE',
+        'template': 'plotly_white',
+    }
 
-    import json
-    import numpy as np
+    g = groups.loc[groups['facultad'] == faculty]
+    if faculty == 'All':
+        fig = px.histogram(groups, y='sub_ocde', color='ocde', orientation='h', barmode='stack', **config)
 
-    return json.dumps({
-        'grupos': np.unique(df['Nombre del grupo'].tolist()),
-        'facultades': np.unique(groups['facultad'].tolist()),
-        'departamentos': np.unique(groups['departamento'].tolist()),
+    elif faculty in ['Facultad de administración', 'Facultad de ciencias exactas y naturales']:
+        config['labels']['ocde'] = ''
+        fig = px.histogram(g, y='ocde', orientation='h', barmode='stack', **config)
 
-    })
+    else:
+        fig = px.histogram(g, y='sub_ocde', color='ocde', orientation='h', barmode='stack', **config)
+
+    fig.update_layout(xaxis_title='')
+    # fig.update_traces(hoverinfo='none', hovertemplate = '')
+    return fig
+
+
+# ----------------------------------------------------------------------
+def plot2(faculty):
+    """"""
+    config = {
+        'labels': {'knowledge': '',
+                   'sub_ocde': 'Subáreas',
+                   'count': ''
+                   },
+        'height': 500,
+        'title': 'Agenda de conocimiento',
+        'template': 'plotly_white',
+    }
+
+    if faculty != 'All':
+        g = groups.loc[groups['facultad'] == faculty]
+    else:
+        g = groups
+
+    fig = px.histogram(g, y='knowledge', orientation='h', barmode='group', **config)
+    fig.update_layout(xaxis_title='')
+    fig.update_traces(hoverinfo='none', hovertemplate='')
+
+    return fig
+
+
+# ----------------------------------------------------------------------
+def plot3(faculty):
+    """"""
+    config = {
+        'labels': {'departamento': '',
+                   'sub_ocde': 'Subáreas',
+                   'count': ''
+                   },
+        'height': 500,
+        'title': 'Departamentos',
+        'template': 'plotly_white',
+    }
+
+    if faculty != 'All':
+        g = groups.loc[groups['facultad'] == faculty]
+    else:
+        g = groups
+
+    fig = px.histogram(g, y='departamento', orientation='h', barmode='group', **config)
+    fig.update_layout(xaxis_title='')
+    fig.update_traces(hoverinfo='none', hovertemplate='')
+
+    return fig

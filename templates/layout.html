@@ -14,13 +14,14 @@ color: blue;
 
 #dima-counters{
 display: none;
+margin: 15px 0;
 }
 
 
 #dima-counters .card{
 margin: auto;
 text-align: center;
-height: 150px;
+height: 132px;
 }
 
 </style>
@@ -29,7 +30,28 @@ height: 150px;
 
 
 {% block html_body %}
-<div class="container-fluid">
+
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">Dirección de Investigación Sede Manizales</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Grupos de investigación</a>
+        </li>
+
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
 
 
   <div class="container"  id='dima-counters'>
@@ -50,8 +72,22 @@ height: 150px;
 
     <div class="card" style="width: 10rem;">
       <div class="card-body">
+        <h1 class="card-title" id='dima-counters-sedes'>00</h1>
+        <p class="card-text">Sedes Int</p>
+      </div>
+    </div>
+
+    <div class="card" style="width: 10rem;">
+      <div class="card-body">
         <h1 class="card-title" id='dima-counters-grupos'>00</h1>
         <p class="card-text">Grupos de investigación</p>
+      </div>
+    </div>
+
+    <div class="card" style="width: 10rem;">
+      <div class="card-body">
+        <h1 class="card-title" id='dima-counters-reserchers'>00</h1>
+        <p class="card-text">Investigadores</p>
       </div>
     </div>
 
@@ -78,16 +114,16 @@ height: 150px;
 
 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
   <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked dima-facultad='All'>
-  <label class="btn btn-sm btn-outline-primary" for="btnradio1">Todas las facultades</label>
+  <label class="btn btn-outline-primary" for="btnradio1">Todas las facultades</label>
 
   <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" dima-facultad='Facultad de administración'>
-  <label class="btn btn-sm btn-outline-primary" for="btnradio2">Facultad de administración</label>
+  <label class="btn btn-outline-primary" for="btnradio2">Facultad de administración</label>
 
   <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" dima-facultad='Facultad de ciencias exactas y naturales'>
-  <label class="btn btn-sm btn-outline-primary" for="btnradio3">Facultad de ciencias exactas y naturales</label>
+  <label class="btn btn-outline-primary" for="btnradio3">Facultad de ciencias exactas y naturales</label>
 
   <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" dima-facultad='Facultad de ingeniería y arquitectura'>
-  <label class="btn btn-sm btn-outline-primary" for="btnradio4">Facultad de ingeniería y arquitectura</label>
+  <label class="btn btn-outline-primary" for="btnradio4">Facultad de ingeniería y arquitectura</label>
 </div><br>
 
 <div id="dima-facultad-description">
@@ -118,8 +154,8 @@ height: 150px;
 
 <br>
 <div class="btn-group">
-  <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    Action
+  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    Grupo de investigación
   </button>
   <ul class="dropdown-menu">
 <li><a class="dropdown-item" href="#">Abc dynamics</a></li>

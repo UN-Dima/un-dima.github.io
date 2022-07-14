@@ -1,4 +1,4 @@
-from radiant.server import PyScriptAPI, pyscript
+from radiant.server import PyScriptAPI, pyscript, pyscript_globals
 from browser import document, html
 import json
 
@@ -8,32 +8,32 @@ class Group(PyScriptAPI):
     """"""
 
     # ----------------------------------------------------------------------
-    def callback_fn(self, data):
-        """"""
-        data = json.loads(data)
-        document.select_one('#dima-counters-facultades').html = f'{len(data["facultades"])}'
-        document.select_one('#dima-counters-grupos').html = f'{len(data["grupos"])}'
-        document.select_one('#dima-counters-departamentos').html = f'{len(data["departamentos"])}'
-        document.select_one('#dima-counters').style = {'display': 'flex', }
-
-    # ----------------------------------------------------------------------
-    @pyscript(output='RAW', callback='callback_fn')
-    def process_data(self):
+    @pyscript_globals
+    def _(self):
         """"""
         global groups, df
-
+        import plotly.express as px
         import json
         import numpy as np
 
-        return json.dumps({
-            'grupos': np.unique(df['Nombre del grupo'].tolist()),
-            'facultades': np.unique(groups['facultad'].tolist()),
-            'departamentos': np.unique(groups['departamento'].tolist()),
-
-        })
+    # ----------------------------------------------------------------------
+    def update_cards(self, data):
+        """"""
+        document.select_one('#dima-counters-facultades').html = f'{len(data["facultades"])}'
+        document.select_one('#dima-counters-grupos').html = f'{len(data["grupos"])}'
+        document.select_one('#dima-counters-departamentos').html = f'{len(data["departamentos"])}'
+        document.select_one('#dima-counters-sedes').html = f'{len(data["sedes_int"])}'
+        document.select_one('#dima-counters-reserchers').html = f'{data["reserchers"]}'
+        document.select_one('#dima-counters').style = {'display': 'flex', }
 
     # ----------------------------------------------------------------------
-    @pyscript(inline=True)
+    def loaded(self, data):
+        """"""
+        self.update_cards(data)
+        self.render_plots()
+
+    # ----------------------------------------------------------------------
+    @pyscript(inline=True, callback='loaded:10000', id='WTF')
     def load_database(self):
         """"""
         global groups, df
@@ -73,14 +73,18 @@ class Group(PyScriptAPI):
         groups = pd.DataFrame.from_dict(groups)
         groups['knowledge'].replace('Cyt de minerales y materiales', 'Ciencia y tecnología de minerales y materiales', inplace=True)
 
-    # ----------------------------------------------------------------------
+        return json.dumps({
+            'grupos': np.unique(df['Nombre del grupo'].tolist()).tolist(),
+            'facultades': np.unique(groups['facultad'].tolist()).tolist(),
+            'departamentos': np.unique(groups['departamento'].tolist()).tolist(),
+            'sedes_int': list(set([sede.strip() for sede in ','.join(np.unique(df['Sedes_Int']).tolist()).split(',')])),
+            'reserchers': sum(groups['members'].to_list()),
+        })
 
-    @pyscript(inline=True, plotly_out='chart1')
+    # ----------------------------------------------------------------------
+    @pyscript(plotly_out='chart1')
     def plot1(self, faculty):
         """"""
-        global groups
-
-        import plotly.express as px
         config = {
             'labels': {'ocde': 'Area',
                        'sub_ocde': 'Subárea',
@@ -107,13 +111,9 @@ class Group(PyScriptAPI):
         return fig
 
     # ----------------------------------------------------------------------
-    @pyscript(inline=True, plotly_out='chart2')
+    @pyscript(plotly_out='chart2')
     def plot2(self, faculty):
         """"""
-        global groups
-
-        import plotly.express as px
-
         config = {
             'labels': {'knowledge': '',
                        'sub_ocde': 'Subáreas',
@@ -136,13 +136,9 @@ class Group(PyScriptAPI):
         return fig
 
     # ----------------------------------------------------------------------
-    @pyscript(inline=True, plotly_out='chart3')
+    @pyscript(plotly_out='chart3')
     def plot3(self, faculty):
         """"""
-        global groups
-
-        import plotly.express as px
-
         config = {
             'labels': {'departamento': '',
                        'sub_ocde': 'Subáreas',
@@ -163,29 +159,3 @@ class Group(PyScriptAPI):
         fig.update_traces(hoverinfo='none', hovertemplate='')
 
         return fig
-
-    # # ----------------------------------------------------------------------
-    # @pyscript(plotly_out='chart4')
-    # def plot4(self):
-        # """"""
-        # global groups
-
-        # import plotly.express as px
-        # import numpy as np
-
-        # config = {
-            # 'labels': {'facultad': '',
-                       # 'sub_ocde': 'Subáreas',
-                       # 'count': ''
-                       # },
-            # 'height': 400,
-            # 'title': 'Facultad',
-            # 'template': 'plotly_white',
-        # }
-
-        # fig = px.histogram(groups, y='facultad', orientation='h', barmode='group', **config)
-        # fig.update_layout(xaxis_title='')
-        # fig.update_traces(hoverinfo='none', hovertemplate='')
-
-        # return fig
-
