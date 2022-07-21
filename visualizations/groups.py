@@ -70,7 +70,7 @@ class Group(PyScriptAPI, CustomPlots):
         self.render_plots()
 
     # ----------------------------------------------------------------------
-    @pyscript(inline=True, callback='loaded:50000')
+    @pyscript(inline=True, callback='loaded:1000000')
     def load_database(self):
         """"""
         global groups, df
