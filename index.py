@@ -15,6 +15,7 @@ class BareMinimum(RadiantAPI, Group):
     def __init__(self, *args, **kwargs):
         """"""
         super().__init__(*args, **kwargs)
+        self.add_css_file('root/styles.css')
         self.add_css_file('/root/styles.css')
         # self.on_load(self.ready, 'DOMContentLoaded')
         self.load_database()
@@ -54,7 +55,7 @@ class BareMinimum(RadiantAPI, Group):
         document.select_one('.dima-group') <= html.H1(data['categoria'], Class='display-1', style=style_cat)
         document.select_one('.dima-group') <= html.H1(data['name'], Class='display-4')
         document.select_one('.dima-group') <= html.H1(f'{data["departamento"]}', Class='h3')
-        document.select_one('.dima-group') <= html.H1(f'Lider del grupo: {data["lider"]}', Class='h5')
+        document.select_one('.dima-group') <= html.H1(f'Director: {data["lider"]}', Class='h5', style={'margin-bottom': '500px', })
         # document.select_one('.dima-group') <= html.H1(f'ODCE: {data["ocde"]},  {data["sub_ocde"]}', Class='h3')
 
 
@@ -62,4 +63,5 @@ if __name__ == '__main__':
     RadiantServer('BareMinimum',
                   template=os.path.join('templates', 'layout.html'),
                   static_app=True,
+                  templates_path='templates',
                   )

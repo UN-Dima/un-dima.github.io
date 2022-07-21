@@ -1,29 +1,14 @@
-{% extends "templates/index.html" %}
+{% extends "index.html" %}
+
 
 {% block html_head %}
 <title>Dima</title>
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 {% end %}
 
-
-
 {% block html_body %}
 
-<nav class="navbar navbar-expand-lg bg-light">
-  <div class="container">
-    <a class="navbar-brand" href="#">Dirección de Investigación Sede Manizales</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Grupos de investigación</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+{% include "navbar.html" %}
 
 
 
@@ -39,7 +24,6 @@
       </div>
     </div>
 </div>
-
 
 <div class='container-fluid dima-form'>
   <div class="container-lg">
@@ -104,26 +88,15 @@
 
 <div class="container-lg">
   <div class="row">
-      <div class="col-12 col-lg-12 col-sm-12">
+      <div class="col-12 col-lg-4 col-sm-12">
+        <h1 class="dima-group-filters">Filters</h1>
+      </div>
+      <div class="col-12 col-lg-8 col-sm-12">
         <h1 class="dima-group"></h1>
       </div>
   </div>
 </div>
 
 
-
-<div class="dima-footer">
-  <div class="container-lg">
-    <div class="row">
-        <div class="col-12 col-lg-12 col-sm-12">
-
-
-
-        </div>
-    </div>
-  </div>
-  <div class="lead" id='dima-footer-made' >Made with <i class="bi bi-heart-fill"></i> by DunderLab</div>
-</div>
-
-
+{% include "footer.html" %}
 {% end %}
