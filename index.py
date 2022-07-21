@@ -15,7 +15,7 @@ class BareMinimum(RadiantAPI, Group):
     def __init__(self, *args, **kwargs):
         """"""
         super().__init__(*args, **kwargs)
-        self.add_css_file('assets/styles.css')
+        self.add_css_file('/root/styles.css')
         # self.on_load(self.ready, 'DOMContentLoaded')
         self.load_database()
 
