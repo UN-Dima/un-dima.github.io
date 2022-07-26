@@ -10,6 +10,28 @@ from .custom_plots import CustomPlots
 class Group(PyScriptAPI, CustomPlots):
     """"""
 
+    # # ----------------------------------------------------------------------
+    # @pyscript(inline=True)
+    # def install_dependencies(self):
+        # """"""
+        # modules = [
+            # 'micropip-0.1-py3-none-any.whl',
+            # 'pytz-2022.1-py2.py3-none-any.whl',
+            # 'numpy-1.22.3-cp310-cp310-emscripten_wasm32.whl',
+            # 'setuptools-62.0.0-py3-none-any.whl',
+            # 'packaging-21.3-py3-none-any.whl',
+            # 'six-1.16.0-py2.py3-none-any.whl',
+            # 'plotly-5.9.0-py2.py3-none-any.whl',
+            # 'tenacity-8.0.1-py3-none-any.whl',
+            # 'pyparsing-3.0.7-py3-none-any.whl',
+            # 'tenacity-8.0.1-py3-none-any.whl',
+            # 'python_dateutil-2.8.2-py2.py3-none-any.whl',
+        # ]
+        # import micropip
+        # for module in modules:
+            # print(f'Installing {module}')
+            # micropip.install(f'/root/modules/{module}')
+
     # ----------------------------------------------------------------------
     @pyscript_globals
     def _(self):

@@ -17,18 +17,12 @@ class BareMinimum(RadiantAPI, Group):
         super().__init__(*args, **kwargs)
         self.add_css_file('root/styles.css')
         self.add_css_file('/root/styles.css')
-        # self.on_load(self.ready, 'DOMContentLoaded')
+
+        # self.install_dependencies()
         self.load_database()
 
-        # for btn in document.select('.btn-check'):
-            # btn.addEventListener('click', self.fn)
-
-    # # ----------------------------------------------------------------------
-    # def fn(self, evt):
-        # """"""
-        # self.render_plots(evt.target.attrs['dima-facultad'])
-
     # ----------------------------------------------------------------------
+
     def render_plots(self, event=None):
         """"""
         if event is None:
