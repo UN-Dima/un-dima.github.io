@@ -1,8 +1,9 @@
-from radiant.server import PyScriptAPI, pyscript, pyscript_globals
+from radiant.server import PyScriptAPI, pyscript, pyscript_globals, pyscript_init
 from browser import document, html
 import json
 import bootstrap as bs
 from .custom_plots import CustomPlots
+import logging
 # from json import dumps as brython_serializer
 
 
@@ -36,6 +37,8 @@ class Group(PyScriptAPI, CustomPlots):
     @pyscript_globals
     def _(self):
         """"""
+        # import sys
+        # import time
         global groups, df
         import plotly.express as px
         import json
@@ -45,7 +48,6 @@ class Group(PyScriptAPI, CustomPlots):
         # from json import dumps as brython_serializer
 
     # ----------------------------------------------------------------------
-
     def make_card(self, value, label):
         """"""
         card = html.DIV(f"""
@@ -73,7 +75,7 @@ class Group(PyScriptAPI, CustomPlots):
 
         options = [{'text': g, 'value': g} for g in data['Facultades']]
         options = [{'text': 'Todas las facultades', 'value': 'All'}] + options
-        document.select_one('#faculty') <= bs.form.Select('Hola', options,
+        document.select_one('#faculty') <= bs.form.Select('', options,
                                                           on_change=self.render_plots)
 
     # ----------------------------------------------------------------------
@@ -88,11 +90,12 @@ class Group(PyScriptAPI, CustomPlots):
     # ----------------------------------------------------------------------
     def loaded(self, data):
         """"""
+        logging.warning('LOADED')
         self.update_cards(data)
         self.render_plots()
 
     # ----------------------------------------------------------------------
-    @pyscript(inline=True, callback='loaded:1000000')
+    @pyscript(inline=True, callback='loaded:5000')
     def load_database(self):
         """"""
         global groups, df
@@ -136,11 +139,15 @@ class Group(PyScriptAPI, CustomPlots):
         groups = pd.DataFrame.from_dict(groups)
         groups['knowledge'].replace('Cyt de minerales y materiales', 'Ciencia y tecnología de minerales y materiales', inplace=True)
 
+        # while not getattr(sys.modules[__name__], 'render_plotly_fig__', False):
+            # print('.')
+            # time.sleep(1)
+
         return json.dumps({
             'Grupos de investigación': np.unique(groups['name'].tolist()).tolist(),
             'Facultades': np.unique(groups['facultad'].tolist()).tolist(),
             'Departamentos': np.unique(groups['departamento'].tolist()).tolist(),
-            'sedes_int?': list(set([sede.strip() for sede in ','.join(np.unique(df['Sedes_Int']).tolist()).split(',')])),
+            'Sedes de intervención': list(set([sede.strip() for sede in ','.join(np.unique(df['Sedes_Int']).tolist()).split(',')])),
             'Investigadores': groups['members'].to_list(),
         })
 
@@ -292,3 +299,4 @@ class Group(PyScriptAPI, CustomPlots):
         grupo = g.to_dict('records')[0]
 
         return json.dumps(grupo)
+

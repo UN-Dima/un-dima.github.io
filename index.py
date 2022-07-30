@@ -1,8 +1,8 @@
 #!brython
 
 import os
-from radiant.server import RadiantAPI, RadiantServer, pyscript
-from browser import document, html
+from radiant.server import RadiantAPI, RadiantServer, pyscript, delay
+from browser import document, html, timer
 from visualizations import Group
 from bootstrap.btn import Button
 import logging
@@ -21,8 +21,8 @@ class BareMinimum(RadiantAPI, Group):
         # self.install_dependencies()
         self.load_database()
 
-    # ----------------------------------------------------------------------
-
+    # ----------------------------------------------------------------------}
+    @delay(10)
     def render_plots(self, event=None):
         """"""
         if event is None:
